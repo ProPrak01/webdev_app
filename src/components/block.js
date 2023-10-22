@@ -1,15 +1,21 @@
 import React, { useState, useEffect,useRef } from 'react';
+import useSound from 'use-sound';
+import sound from './sound.mp3';
 
 const api1 = 'https://official-joke-api.appspot.com/random_joke'; // Replace with the actual URL of API1
 const api2 = 'https://api.quotable.io/random'; // Replace with the actual URL of API2
 
 export default function Block({ likedItems, setLikedItems }) {
-    const imgRef = useRef(null);
-    
+    const image = useRef(null);
+
+
+    const [playSound] = useSound(sound);
+
     const [type,typer]= useState('');
      const [joke, setJoke] = useState('');
     const [apiSource, setApiSource] = useState('api1');
     const fetchJoke = () => {
+       
       const apiUrl = apiSource === 'api1' ? api1 : api2;
   
       
@@ -18,21 +24,21 @@ export default function Block({ likedItems, setLikedItems }) {
           if (response.ok) {
             return response.json();
           } else {
-            throw new Error('Failed to fetch joke');
+            throw new Error('failed');
           }
         })
         .then((data) => {
             if(apiUrl==api1){
                 typer('joke');
                 setJoke(data.setup + " " + data.punchline);
-                imgRef.current.style.transform = "rotateY(180deg)";
+                image.current.style.transform = "rotateY(180deg)";
 
             }
             else{
                 typer('quote');
 
                 setJoke(data.content);
-                imgRef.current.style.transform = "rotateY(0deg)";
+                image.current.style.transform = "rotateY(0deg)";
 
             }
          
@@ -41,9 +47,13 @@ export default function Block({ likedItems, setLikedItems }) {
         .catch((err) => {
           console.log('Error:', err);
         });
+
+        
+       
     };
 
     const handleLike = (event) => {
+
         event.stopPropagation();
     
         if (!likedItems.includes(joke)) {
@@ -53,14 +63,15 @@ export default function Block({ likedItems, setLikedItems }) {
           const updatedLikedItems = likedItems.filter((item) => item !== joke);
           setLikedItems(updatedLikedItems);
         }
+        
       };
-
+     
 
 
   return (
     
-      <div className='block'  onClick={fetchJoke}>
-            <img className='img' src='./images/skull.png' ref={imgRef} ></img>
+      <div className='block'  onClick={fetchJoke} >
+            <img className='img' src='./images/skull.png' ref={image}  onClick={playSound}></img>
                 <h4>{type}</h4>
                 <p className='content'>{joke}</p>
                 
@@ -68,6 +79,8 @@ export default function Block({ likedItems, setLikedItems }) {
       <button className='like' onClick={handleLike}>
         {likedItems.includes(joke) ? 'Unlike' : 'Like'}
       </button>
+
+      
             </div>
            
       

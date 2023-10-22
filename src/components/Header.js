@@ -14,7 +14,7 @@ export default function Header() {
 
   return (
     <div className='topnav'>
-    <img className='logo' src='./images/jokerwhite.png' alt="logo"/>
+    <img className='logo' src='./images/webops.png' alt="logo"/>
 <nav>
     <ul>
    
