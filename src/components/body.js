@@ -1,6 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import Block from "./block"; 
+import Table from './favouritelist';
+
 export default function Body() {
+
+    const [likedItems, setLikedItems] = useState([]);
+
 
 
   return (
@@ -15,12 +20,17 @@ export default function Body() {
 
         </div>
         <div className='col'>
-        <Block/>
-        <Block/>
-        <Block/>
-        <Block/> 
-        </div>
+        <Block likedItems={likedItems} setLikedItems={setLikedItems} />
+    <Block likedItems={likedItems} setLikedItems={setLikedItems} />
+     <Block likedItems={likedItems} setLikedItems={setLikedItems} />
+        <Block likedItems={likedItems} setLikedItems={setLikedItems} />
        
+
+
+          <Table likedItems={likedItems} />
+
+        
+        </div>
         
     </div>
 
