@@ -2,9 +2,9 @@ import React, { useState, useEffect,useRef } from 'react';
 import useSound from 'use-sound';
 import sound from './sound.mp3';
 
-const api1 = 'https://official-joke-api.appspot.com/random_joke'; // Replace with the actual URL of API1
-const api2 = 'https://api.quotable.io/random'; // Replace with the actual URL of API2
+const api1 = 'https://official-joke-api.appspot.com/random_joke'; 
 
+const api2 = 'https://api.quotable.io/random'; 
 export default function Block({ likedItems, setLikedItems }) {
     const image = useRef(null);
 
@@ -42,7 +42,7 @@ export default function Block({ likedItems, setLikedItems }) {
 
             }
          
-          setApiSource(apiSource === 'api1' ? 'api2' : 'api1'); // Toggle between sources
+          setApiSource(apiSource === 'api1' ? 'api2' : 'api1'); 
         })
         .catch((err) => {
           console.log('Error:', err);
@@ -52,14 +52,13 @@ export default function Block({ likedItems, setLikedItems }) {
        
     };
 
-    const handleLike = (event) => {
+    const likebutton = (event) => {
 
         event.stopPropagation();
     
         if (!likedItems.includes(joke)) {
           setLikedItems([...likedItems, joke]);
         } else {
-          // Remove the item from the liked items list
           const updatedLikedItems = likedItems.filter((item) => item !== joke);
           setLikedItems(updatedLikedItems);
         }
@@ -76,7 +75,7 @@ export default function Block({ likedItems, setLikedItems }) {
                 <p className='content'>{joke}</p>
                 
 
-      <button className='like' onClick={handleLike}>
+      <button className='like' onClick={likebutton}>
         {likedItems.includes(joke) ? 'Unlike' : 'Like'}
       </button>
 
